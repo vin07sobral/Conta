@@ -26,18 +26,14 @@ namespace conta
             Console.Write("Informe um valor para saque: ");
             double valorSaque = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
             
-            if(c.saldo < valorSaque)
-            {
-                Console.WriteLine("Não há saldo suficiente! Saque Cancelado");
-            }
-            else if(valorSaque > c.limiteDeDaque)
-            {
-                Console.WriteLine("Valor do saque é superior ao limite da conta! Saque cancelado.");
-            }
-            else
+            try
             {
                 c.sacar(valorSaque);
                 Console.WriteLine("Novo saldo = R$: " + c.saldo.ToString("F2", CultureInfo.InvariantCulture));
+            }
+            catch(OperacaoException e)
+            {
+                Console.WriteLine(e.Message);
             }
             Console.ReadLine();
              

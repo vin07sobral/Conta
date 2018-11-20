@@ -26,6 +26,15 @@ namespace conta
 
         public void sacar(double valor)
         {
+            if (saldo < valor)
+            {
+               throw new OperacaoException("Não há saldo suficiente! Saque Cancelado");
+            }
+            if (valor > limiteDeDaque)
+            {
+                throw new OperacaoException("Valor do saque é superior ao limite da conta! Saque cancelado.");
+            }
+            
             saldo = saldo - valor;
         }
     }
