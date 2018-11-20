@@ -14,19 +14,33 @@ namespace conta
             Console.Write("Limite de saque: ");
             double limite = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-            Conta C = new Conta(numero, titular, limite);
+            Conta c = new Conta(numero, titular, limite);
 
             Console.WriteLine();
             Console.Write("Informe um valor para depósito: ");
             double valorDeposito = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            C.depositar(valorDeposito);
-            Console.WriteLine("Novo saldo = R$: " + C.saldo.ToString("F2,", CultureInfo.InvariantCulture));
+            c.depositar(valorDeposito);
+            Console.WriteLine("Novo saldo = R$: " + c.saldo.ToString("F2", CultureInfo.InvariantCulture));
 
             Console.WriteLine();
             Console.Write("Informe um valor para saque: ");
             double valorSaque = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            C.sacar(valorSaque);
-            Console.WriteLine("Novo saldo = R$: " + C.saldo.ToString("F2", CultureInfo.InvariantCulture));
+            
+            if(c.saldo < valorSaque)
+            {
+                Console.WriteLine("Não há saldo suficiente! Saque Cancelado");
+            }
+            else if(valorSaque > c.limiteDeDaque)
+            {
+                Console.WriteLine("Valor do saque é superior ao limite da conta! Saque cancelado.");
+            }
+            else
+            {
+                c.sacar(valorSaque);
+                Console.WriteLine("Novo saldo = R$: " + c.saldo.ToString("F2", CultureInfo.InvariantCulture));
+            }
+            Console.ReadLine();
+             
         }
     }
 }
